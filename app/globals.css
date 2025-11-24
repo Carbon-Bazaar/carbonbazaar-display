@@ -1,0 +1,234 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --eco-green: #7FB069;
+    --soft-green: #A8DADC;
+    --dark-green: #4A7C59;
+    --eco-green-light: #9CC57E;
+    --leaf-tint: #7FB069;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --border: 0 0% 89.8%;
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-playfair;
+  }
+}
+
+@layer components {
+  .font-playfair {
+    font-family: var(--font-playfair), serif;
+  }
+
+  .font-sans {
+    font-family: var(--font-inter), sans-serif;
+  }
+
+  .nav-link {
+    @apply text-gray-700 dark:text-gray-300 hover:text-eco-green dark:hover:text-eco-green-light font-medium transition-colors;
+  }
+
+  .mobile-nav-link {
+    @apply block text-gray-700 dark:text-gray-300 hover:text-eco-green dark:hover:text-eco-green-light font-medium py-2 transition-colors;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 text-gray-900 dark:text-white;
+  }
+
+  .section-title-left {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-dark-green dark:text-eco-green-light;
+  }
+
+  .section-subtitle {
+    @apply text-center text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto;
+  }
+
+  .btn-primary {
+    @apply px-8 py-4 rounded-full font-semibold text-white bg-gradient-to-r from-eco-green to-dark-green hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 shadow-lg;
+  }
+
+  .btn-secondary {
+    @apply px-8 py-4 rounded-full font-semibold text-dark-green dark:text-eco-green-light border-2 border-dark-green dark:border-eco-green-light hover:bg-dark-green dark:hover:bg-eco-green hover:text-white hover:-translate-y-1 transition-all duration-300;
+  }
+
+  .hero-section {
+    @apply min-h-screen flex items-center justify-center relative overflow-hidden bg-gray-50 dark:bg-gray-900 pt-20;
+  }
+
+  .hero-background {
+    @apply absolute inset-0 z-0;
+    background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .hero-overlay {
+    @apply absolute inset-0 bg-white/75 dark:bg-gray-900/75 z-10;
+  }
+
+  .floating-particles {
+    @apply absolute inset-0 z-20;
+  }
+
+  .particle {
+    @apply absolute w-2 h-2 rounded-full opacity-30;
+    background: var(--eco-green);
+    animation: floatParticle 15s infinite ease-in-out;
+  }
+
+  .particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+  .particle:nth-child(2) { left: 80%; top: 30%; animation-delay: 2s; }
+  .particle:nth-child(3) { left: 20%; top: 70%; animation-delay: 4s; }
+  .particle:nth-child(4) { left: 70%; top: 60%; animation-delay: 1s; }
+  .particle:nth-child(5) { left: 50%; top: 40%; animation-delay: 3s; }
+  .particle:nth-child(6) { left: 30%; top: 50%; animation-delay: 5s; }
+
+  .hero-content {
+    @apply text-center max-w-5xl mx-auto px-4 z-30 relative;
+    animation: fadeInUp 1s ease-out;
+  }
+
+  .hero-badge {
+    @apply inline-block border-2 rounded-full px-6 py-3 mb-8 backdrop-blur-sm text-sm md:text-base font-bold;
+    background: rgba(127, 176, 105, 0.15);
+    border-color: var(--eco-green);
+    color: var(--dark-green);
+  }
+
+  .dark .hero-badge {
+    background: rgba(156, 197, 126, 0.15);
+    border-color: var(--eco-green-light);
+    color: var(--eco-green-light);
+  }
+
+  /* leaf tint variable for inline SVGs */
+  .leaf-fill {
+    fill: var(--leaf-tint);
+    color: var(--leaf-tint);
+  }
+
+  .leaf-icon { width: 2rem; height: 2rem; }
+  .leaf-icon-lg { width: 3rem; height: 3rem; }
+  .leaf-icon-xl { width: 4rem; height: 4rem; }
+
+  .hero-title {
+    @apply text-4xl md:text-5xl lg:text-7xl font-bold mb-6 text-gray-900 dark:text-white leading-tight;
+  }
+
+  .highlight-text {
+    @apply bg-gradient-to-r from-eco-green to-dark-green bg-clip-text text-transparent;
+  }
+
+  .dark .highlight-text {
+    @apply bg-gradient-to-r from-eco-green-light to-soft-green bg-clip-text text-transparent;
+  }
+
+  .hero-description {
+    @apply text-lg md:text-xl lg:text-2xl text-gray-700 dark:text-gray-300 mb-10 leading-relaxed;
+  }
+
+  .cta-buttons {
+    @apply flex flex-col sm:flex-row gap-4 justify-center items-center;
+  }
+
+  .mission-highlights {
+    @apply flex gap-8 flex-wrap;
+  }
+
+  .highlight-item {
+    @apply flex flex-col transition-all duration-500;
+  }
+
+  .highlight-number {
+    @apply text-4xl font-bold text-eco-green dark:text-eco-green-light font-playfair;
+  }
+
+  .highlight-text {
+    @apply text-sm text-gray-600 dark:text-gray-400;
+  }
+
+  .badge-icon {
+    @apply w-20 h-20 rounded-full flex items-center justify-center mx-auto bg-gradient-to-br from-eco-green to-soft-green text-white shadow-lg;
+  }
+
+  .dark .badge-icon {
+    @apply from-eco-green-light to-soft-green;
+  }
+
+  .impact-section {
+    @apply bg-gradient-to-br from-dark-green to-eco-green text-white relative;
+  }
+
+  .why-us-background {
+    @apply absolute inset-0 z-0 opacity-50;
+    background: radial-gradient(circle at 30% 50%, rgba(168, 218, 220, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(127, 176, 105, 0.2) 0%, transparent 50%);
+  }
+
+  .fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatParticle {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(50px, -50px) scale(1.5);
+    opacity: 0.6;
+  }
+}
+
+@layer utilities {
+  .text-eco-green {
+    color: var(--eco-green);
+  }
+
+  .text-eco-green-light {
+    color: var(--eco-green-light);
+  }
+
+  .text-dark-green {
+    color: var(--dark-green);
+  }
+
+  .bg-eco-green {
+    background-color: var(--eco-green);
+  }
+
+  .border-eco-green {
+    border-color: var(--eco-green);
+  }
+}

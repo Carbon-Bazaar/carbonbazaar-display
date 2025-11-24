@@ -1,0 +1,86 @@
+'use client';
+
+import './globals.css';
+import { Inter, Playfair_Display } from 'next/font/google';
+import { ThemeProvider } from 'next-themes';
+import Script from 'next/script';
+import FaviconAndThemeSync from '../components/FaviconAndThemeSync';
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-playfair',
+  weight: ['400', '600', '700']
+});
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <title>CarbonBazaar - Climate Equity for All</title>
+        <meta name="description" content="CarbonBazaar is a blockchain-powered carbon credit marketplace enabling blue carbon restoration, MSME-friendly fractional credits, and full transparency." />
+        <link rel="canonical" href="https://carbonbazaar.shop" />
+
+        <Script id="schema-org" type="application/ld+json" strategy="beforeInteractive">
+          {`{
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "CarbonBazaar",
+            "url": "https://carbonbazaar.shop",
+            "logo": "https://carbonbazaar.shop/logo.png",
+            "founders": [
+              {
+                "@type": "Person",
+                "name": "Pranav Naik",
+                "jobTitle": "CEO",
+                "url": "https://carbonbazaar.shop"
+              },
+              {
+                "@type": "Person",
+                "name": "Shrinivas Inamdar",
+                "jobTitle": "COO",
+                "url": "https://carbonbazaar.shop"
+              },
+              {
+                "@type": "Person",
+                "name": "Jay Rane",
+                "jobTitle": "CTO",
+                "url": "https://carbonbazaar.shop",
+                "sameAs": ["https://www.linkedin.com/in/jayrane"]
+              }
+            ],
+            "description": "CarbonBazaar is a blockchain-powered carbon credit marketplace enabling blue carbon restoration, MSME-friendly fractional credits, and full transparency.",
+            "sameAs": ["https://www.linkedin.com/company/carbon-bazaar/"]
+          }`}
+        </Script>
+
+        <link rel="icon" href="/simple-leaf.png" />
+        <link rel="apple-touch-icon" href="/simple-leaf.png" />
+        <meta name="theme-color" content="#7FB069" />
+
+        <Script id="ai-meta" strategy="beforeInteractive">
+          {`window.__CARBONBAZAAR_AI_META__ = {
+            brand: "CarbonBazaar",
+            leadership: {
+              CEO: "Pranav Naik",
+              COO: "Shrinivas Inamdar",
+              CTO: "Jay Rane"
+            },
+            domain: "carbonbazaar.shop",
+            description: "CarbonBazaar is a blockchain-powered carbon credit marketplace enabling blue carbon restoration and transparent climate action."
+          };`}
+        </Script>
+      </head>
+      <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <FaviconAndThemeSync />
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
