@@ -10,27 +10,42 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)', 'sans-serif'],
+        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
         playfair: ['var(--font-playfair)', 'serif'],
       },
       colors: {
-        'eco-green': '#7FB069',
-        'eco-green-light': '#9CC57E',
-        'soft-green': '#A8DADC',
-        'dark-green': '#4A7C59',
+        forest: {
+          DEFAULT: '#1B4332',
+          light: '#2D6A4F',
+        },
+        sage: {
+          DEFAULT: '#52796F',
+          light: '#74A69D',
+        },
+        mint: {
+          DEFAULT: '#95D5B2',
+          light: '#B7E4C7',
+        },
+        cream: '#FAFDF7',
+        'warm-white': '#F5F7F2',
+        sand: '#E8E4DE',
+        earth: '#8B7355',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         border: 'hsl(var(--border))',
-      },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+      },
+      animation: {
+        'gradient-shift': 'gradient-shift 8s ease-in-out infinite',
+        'leaf-float': 'leaf-float 20s linear infinite',
+        'scroll-bounce': 'scroll-bounce 2s ease-in-out infinite',
+        'fade-in-up': 'fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'pulse-soft': 'pulse-soft 3s ease-in-out infinite',
+        shimmer: 'shimmer 2s linear infinite',
       },
     },
   },

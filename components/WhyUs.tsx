@@ -1,33 +1,44 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { Check, DollarSign, Users, CheckCircle, TrendingUp } from 'lucide-react';
+import {
+  Ban,
+  ShieldCheck,
+  Building2,
+  Heart,
+  Scale,
+} from 'lucide-react';
 
-const badges = [
+const differentiators = [
   {
-    icon: Check,
-    title: 'Transparent',
-    description: 'Full visibility into every transaction and carbon credit',
+    icon: Ban,
+    title: 'No Middlemen',
+    description:
+      'Direct connections between communities and buyers eliminate unnecessary intermediaries and reduce costs.',
   },
   {
-    icon: DollarSign,
-    title: 'Affordable',
-    description: 'Accessible pricing for businesses of all sizes',
+    icon: ShieldCheck,
+    title: 'Blockchain-Verified',
+    description:
+      'Every credit is tokenized and recorded on-chain for immutable proof of authenticity and ownership.',
   },
   {
-    icon: Users,
-    title: 'Inclusive',
-    description: 'Empowering communities at the grassroots level',
+    icon: Building2,
+    title: 'MSME-Friendly',
+    description:
+      'Fractional credit ownership makes carbon offsetting accessible and affordable for small businesses.',
   },
   {
-    icon: CheckCircle,
-    title: 'Verifiable',
-    description: 'Blockchain-backed certification and validation',
+    icon: Heart,
+    title: 'Community-First',
+    description:
+      'Fair compensation models ensure that the communities doing the restoration work benefit directly.',
   },
   {
-    icon: TrendingUp,
-    title: 'Scalable',
-    description: 'Built to grow with global sustainability needs',
+    icon: Scale,
+    title: 'Regulation-Ready',
+    description:
+      'Built to comply with emerging carbon regulations and international verification standards.',
   },
 ];
 
@@ -39,41 +50,63 @@ export default function WhyUs() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in-up');
+            entry.target.querySelectorAll('.reveal').forEach((el) => {
+              el.classList.add('revealed');
+            });
           }
         });
       },
       { threshold: 0.1 }
     );
 
-    const badges = sectionRef.current?.querySelectorAll('.badge-card');
-    badges?.forEach((badge) => observer.observe(badge));
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section id="why-us" ref={sectionRef} className="section-padding bg-white dark:bg-gray-900 relative overflow-hidden">
-      <div className="why-us-background" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <h2 className="section-title">Why CarbonBazaar?</h2>
-        <p className="section-subtitle">Building trust through transparency and innovation</p>
+    <section
+      id="why-us"
+      ref={sectionRef}
+      className="section-padding"
+      style={{ background: 'var(--cream)' }}
+    >
+      <div className="section-container">
+        <div className="reveal text-center mb-14">
+          <p
+            className="text-sm font-semibold uppercase tracking-widest mb-3"
+            style={{ color: 'var(--sage)' }}
+          >
+            Why Choose Us
+          </p>
+          <h2 className="section-title">Why CarbonBazaar?</h2>
+          <p className="section-subtitle">
+            Building trust through transparency, technology, and community empowerment.
+          </p>
+        </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {badges.map((badge, index) => (
+        <div className="max-w-4xl mx-auto space-y-5">
+          {differentiators.map((item, index) => (
             <div
               key={index}
-              className="badge-card opacity-0 bg-white dark:bg-gray-800 p-8 rounded-3xl text-center shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 dark:border-gray-700"
+              className={`reveal reveal-delay-${(index % 3) + 1} glass-card p-6 flex items-start gap-5`}
             >
-              <div className="badge-icon mb-6">
-                <badge.icon className="w-10 h-10" />
+              <div className="feature-icon shrink-0 !mb-0">
+                <item.icon className="w-6 h-6" />
               </div>
-              <h4 className="text-xl font-semibold text-dark-green dark:text-eco-green-light mb-3">
-                {badge.title}
-              </h4>
-              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                {badge.description}
-              </p>
+              <div>
+                <h4
+                  className="text-lg font-semibold mb-1.5"
+                  style={{ color: 'var(--forest)' }}
+                >
+                  {item.title}
+                </h4>
+                <p
+                  className="leading-relaxed"
+                  style={{ color: 'var(--text-secondary)' }}
+                >
+                  {item.description}
+                </p>
+              </div>
             </div>
           ))}
         </div>

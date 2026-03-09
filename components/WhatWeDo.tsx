@@ -1,38 +1,51 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import Image from 'next/image';
+import {
+  Upload,
+  ShieldCheck,
+  Link2,
+  Store,
+  Puzzle,
+  BarChart3,
+} from 'lucide-react';
 
-const cards = [
+const features = [
   {
+    icon: Upload,
+    title: 'Project Onboarding',
+    description:
+      'Streamlined registration for communities and landowners to submit ecosystem restoration projects with guided workflows.',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Third-Party Verification',
+    description:
+      'Integrated verification workflows connecting projects with accredited auditors to validate carbon sequestration claims.',
+  },
+  {
+    icon: Link2,
+    title: 'Blockchain Tokenization',
+    description:
+      'Every verified credit is tokenized on-chain, ensuring traceability and eliminating the risk of double counting.',
+  },
+  {
+    icon: Store,
     title: 'Direct Marketplace',
-    description: 'Connecting coastal communities directly with buyers, ensuring fair compensation and transparency.',
-    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=500&q=80',
+    description:
+      'Connecting communities directly with buyers — no middlemen, fair pricing, and complete transaction transparency.',
   },
   {
+    icon: Puzzle,
     title: 'Fractional Credits',
-    description: 'Making carbon credits accessible to MSMEs through affordable fractional ownership.',
-    image: 'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=500&q=80',
+    description:
+      'Making carbon offsetting accessible to MSMEs through affordable fractional ownership of verified credits.',
   },
   {
-    title: 'Blockchain Transparency',
-    description: 'Every transaction verified and recorded on blockchain for complete accountability.',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&q=80',
-  },
-  {
-    title: 'Blue Carbon Focus',
-    description: 'Specializing in mangrove and coastal ecosystem restoration projects.',
-    image: 'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?q=80&w=1548',
-  },
-  {
-    title: 'Climate Impact',
-    description: 'Measurable, verifiable impact on global carbon reduction goals.',
-    image: 'https://images.unsplash.com/photo-1552799446-159ba9523315?q=80&w=1740',
-  },
-  {
-    title: 'Fair Compensation',
-    description: 'Ensuring communities receive fair value for their conservation efforts.',
-    image: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=500&q=80',
+    icon: BarChart3,
+    title: 'Impact Tracking',
+    description:
+      'Real-time dashboards showing measurable environmental impact, credit retirement status, and community income generated.',
   },
 ];
 
@@ -44,49 +57,62 @@ export default function WhatWeDo() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in-up');
+            entry.target.querySelectorAll('.reveal').forEach((el) => {
+              el.classList.add('revealed');
+            });
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.05 }
     );
 
-    const cards = sectionRef.current?.querySelectorAll('.feature-card');
-    cards?.forEach((card) => observer.observe(card));
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section id="what-we-do" ref={sectionRef} className="section-padding bg-gray-50 dark:bg-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="section-title">What We Do</h2>
-        <p className="section-subtitle">
-          Transforming the carbon credit landscape with innovation and integrity
-        </p>
+    <section
+      id="what-we-do"
+      ref={sectionRef}
+      className="section-padding"
+      style={{ background: 'var(--warm-white)' }}
+    >
+      <div className="section-container">
+        <div className="reveal text-center mb-14">
+          <p
+            className="text-sm font-semibold uppercase tracking-widest mb-3"
+            style={{ color: 'var(--sage)' }}
+          >
+            Platform Features
+          </p>
+          <h2 className="section-title">What We Do</h2>
+          <p className="section-subtitle">
+            An end-to-end platform that simplifies the journey from ecosystem
+            restoration to verified, tradeable carbon credits.
+          </p>
+        </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {cards.map((card, index) => (
+          {features.map((feature, index) => (
             <div
               key={index}
-              className="feature-card opacity-0 bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+              className={`reveal reveal-delay-${(index % 3) + 1} glass-card p-7`}
             >
-              <div className="relative h-48 overflow-hidden">
-                <Image
-                  src={card.image}
-                  alt={card.title}
-                  fill
-                  className="object-cover transition-transform duration-300 hover:scale-110"
-                />
+              <div className="feature-icon">
+                <feature.icon className="w-6 h-6" />
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-dark-green dark:text-eco-green-light mb-3">
-                  {card.title}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  {card.description}
-                </p>
-              </div>
+              <h3
+                className="text-lg font-semibold mb-3"
+                style={{ color: 'var(--forest)' }}
+              >
+                {feature.title}
+              </h3>
+              <p
+                className="leading-relaxed text-[0.95rem]"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                {feature.description}
+              </p>
             </div>
           ))}
         </div>
