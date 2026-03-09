@@ -20,7 +20,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer style={{ background: 'var(--forest)', color: 'rgba(255, 255, 255, 0.8)' }}>
+    <footer className="bg-[#0d2818] dark:bg-[#051109] text-white/80 transition-colors duration-500">
       {/* Gradient top border */}
       <div
         className="h-1"
