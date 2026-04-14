@@ -91,13 +91,13 @@ export default function Footer() {
                 LinkedIn
               </a>
               <a
-                href="mailto:contact@carbonbazaar.shop"
+                href="mailto:info@carbonbazaar.co.in"
                 className="flex items-center gap-3 text-sm text-white/60 hover:text-mint transition-colors"
               >
                 <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-white/15 transition-colors">
                   <Mail className="w-5 h-5" />
                 </div>
-                contact@carbonbazaar.shop
+                info@carbonbazaar.co.in
               </a>
             </div>
 

@@ -47,6 +47,8 @@ export default function MarketplaceNav({ onOpenAuth, onToast }: MarketplaceNavPr
     onToast('Signed out successfully');
   };
 
+  const dashboardHref = `/dashboard/${user?.role || 'buyer'}`;
+
   return (
     <nav className={`sticky top-0 z-50 transition-all duration-500 border-b ${scrolled
       ? 'bg-white/90 backdrop-blur-xl shadow-sm border-[#E8E4DE]'
@@ -85,18 +87,26 @@ export default function MarketplaceNav({ onOpenAuth, onToast }: MarketplaceNavPr
                     <div className="text-sm font-medium text-[#1A2E1A]">{user?.name}</div>
                     <div className="text-xs text-[#7A8F7A] mt-0.5">{user?.email}</div>
                   </div>
-                  {[
-                    { icon: LayoutDashboard, label: 'My Dashboard' },
-                    { icon: Heart, label: 'My Wishlist' },
-                    { icon: FileText, label: 'My Orders' },
-                    { icon: Settings, label: 'Settings' },
-                  ].map(item => (
-                    <button key={item.label} onClick={() => { setDropdownOpen(false); onToast(`${item.label} coming soon!`); }}
-                      className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-[#4A5D4A] hover:text-[#1B4332] hover:bg-[#F5F7F2] transition-all">
-                      <item.icon size={16} className="opacity-50" />
-                      {item.label}
-                    </button>
-                  ))}
+                  <Link href={dashboardHref} onClick={() => setDropdownOpen(false)}
+                    className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-[#4A5D4A] hover:text-[#1B4332] hover:bg-[#F5F7F2] transition-all">
+                    <LayoutDashboard size={16} className="opacity-50" />
+                    My Dashboard
+                  </Link>
+                  <Link href={dashboardHref} onClick={() => setDropdownOpen(false)}
+                    className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-[#4A5D4A] hover:text-[#1B4332] hover:bg-[#F5F7F2] transition-all">
+                    <FileText size={16} className="opacity-50" />
+                    My Orders
+                  </Link>
+                  <button onClick={() => { setDropdownOpen(false); onToast('Wishlist coming soon!'); }}
+                    className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-[#4A5D4A] hover:text-[#1B4332] hover:bg-[#F5F7F2] transition-all">
+                    <Heart size={16} className="opacity-50" />
+                    My Wishlist
+                  </button>
+                  <button onClick={() => { setDropdownOpen(false); onToast('Settings coming soon!'); }}
+                    className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-[#4A5D4A] hover:text-[#1B4332] hover:bg-[#F5F7F2] transition-all">
+                    <Settings size={16} className="opacity-50" />
+                    Settings
+                  </button>
                   <div className="h-px bg-[#E8E4DE] my-1" />
                   <button onClick={handleLogout}
                     className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-red-500/70 hover:text-red-600 hover:bg-red-50 transition-all">
@@ -134,6 +144,12 @@ export default function MarketplaceNav({ onOpenAuth, onToast }: MarketplaceNavPr
               {link.label}
             </Link>
           ))}
+          {isLoggedIn && (
+            <Link href={dashboardHref} onClick={() => setMobileOpen(false)}
+              className="block font-medium py-3 px-4 rounded-xl transition-all duration-300 text-[#4A5D4A] hover:text-[#1B4332] hover:bg-[#B7E4C7]/30">
+              📊 Dashboard
+            </Link>
+          )}
         </div>
       </div>
     </nav>

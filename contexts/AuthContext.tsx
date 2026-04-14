@@ -2,22 +2,45 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
+export type UserRole = 'buyer' | 'seller';
+
 export interface User {
   name: string;
   email: string;
   initials: string;
+  role: UserRole;
+  // Buyer-specific
+  companyName?: string;
+  gstin?: string;
+  industrySector?: string;
+  complianceIntent?: string[];
+  // Seller-specific
+  mobile?: string;
+  taluka?: string;
+  landArea?: string;
+  landType?: string;
+  surveyNumber?: string;
+  upiId?: string;
 }
 
 interface StoredUser extends User {
   password: string;
   created: string;
+  role: UserRole;
 }
 
 interface AuthContextType {
   user: User | null;
   isLoggedIn: boolean;
   login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
-  signup: (first: string, last: string, email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  signup: (
+    first: string,
+    last: string,
+    email: string,
+    password: string,
+    role: UserRole,
+    extraFields?: Partial<User>
+  ) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
 }
 
@@ -47,22 +70,33 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const found = users.find(u => u.email === email);
     if (!found) return { success: false, error: 'No account found with this email' };
     if (found.password !== password) return { success: false, error: 'Incorrect password' };
-    const session: User = { name: found.name, email: found.email, initials: found.initials };
+    const session: User = { name: found.name, email: found.email, initials: found.initials, role: found.role || 'buyer' };
     localStorage.setItem(SESSION_KEY, JSON.stringify(session));
     setUser(session);
     return { success: true };
   };
 
-  const signup = async (first: string, last: string, email: string, password: string) => {
+  const signup = async (
+    first: string,
+    last: string,
+    email: string,
+    password: string,
+    role: UserRole,
+    extraFields?: Partial<User>
+  ) => {
     await new Promise(r => setTimeout(r, 800));
     const users = getUsers();
     if (users.find(u => u.email === email)) return { success: false, error: 'An account with this email already exists' };
     const name = `${first} ${last}`;
     const initials = `${first[0]}${last[0]}`.toUpperCase();
-    const newUser: StoredUser = { name, email, password, initials, created: new Date().toISOString() };
+    const newUser: StoredUser = {
+      name, email, password, initials, role,
+      created: new Date().toISOString(),
+      ...extraFields,
+    };
     users.push(newUser);
     localStorage.setItem(USERS_KEY, JSON.stringify(users));
-    const session: User = { name, email, initials };
+    const session: User = { name, email, initials, role, ...extraFields };
     localStorage.setItem(SESSION_KEY, JSON.stringify(session));
     setUser(session);
     return { success: true };

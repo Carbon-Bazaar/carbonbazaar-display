@@ -5,6 +5,7 @@
 @layer base {
   :root {
     /* ── Nature-inspired Minimalist Palette ── */
+    --forest-darkest: #0d2818;
     --forest: #1B4332;
     --forest-light: #2D6A4F;
     --sage: #52796F;
@@ -18,6 +19,11 @@
     --text-primary: #1A2E1A;
     --text-secondary: #4A5D4A;
     --text-muted: #7A8F7A;
+
+    /* Dashboard amber / warning */
+    --amber: #854F0B;
+    --amber-bg: rgba(186, 117, 23, 0.1);
+    --amber-border: rgba(186, 117, 23, 0.4);
 
     /* shadcn tokens */
     --background: 100 30% 98%;

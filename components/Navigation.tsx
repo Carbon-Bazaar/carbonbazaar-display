@@ -1,8 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, X, Leaf } from 'lucide-react';
+import { Menu, X, Leaf, LayoutDashboard } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import AuthModal from '@/components/marketplace/AuthModal';
 
@@ -110,7 +111,14 @@ export default function Navigation() {
                         <div className="text-sm font-medium text-[#1A2E1A]">{user?.name}</div>
                         <div className="text-xs text-[#7A8F7A]">{user?.email}</div>
                       </div>
+                      <Link href={`/dashboard/${user?.role || 'buyer'}`}
+                        onClick={() => setDropdownOpen(false)}
+                        className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-[#4A5D4A] hover:text-[#1B4332] hover:bg-[#F5F7F2] transition-all">
+                        <LayoutDashboard size={16} className="opacity-50" />
+                        My Dashboard
+                      </Link>
                       <Link href="/marketplace"
+                        onClick={() => setDropdownOpen(false)}
                         className="block px-3 py-2.5 rounded-xl text-sm text-[#4A5D4A] hover:text-[#1B4332] hover:bg-[#F5F7F2] transition-all">
                         🛒 Marketplace
                       </Link>
@@ -174,9 +182,14 @@ export default function Navigation() {
                 {link.label}
               </button>
             ))}
-            <Link href="/marketplace" className="mobile-nav-link w-full text-left block">
-              🛒 Marketplace
-            </Link>
+            <Link href="/marketplace" className="mobile-nav-link w-full text-left block" onClick={() => setIsMobileMenuOpen(false)}>
+               🛒 Marketplace
+             </Link>
+             {isLoggedIn && (
+               <Link href={`/dashboard/${user?.role || 'buyer'}`} className="mobile-nav-link w-full text-left block" onClick={() => setIsMobileMenuOpen(false)}>
+                 📊 Dashboard
+               </Link>
+             )}
             {!isLoggedIn && (
               <button onClick={() => { setIsMobileMenuOpen(false); openAuth('login'); }}
                 className="mobile-nav-link w-full text-left">
