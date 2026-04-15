@@ -29,22 +29,22 @@ const sellerNav: NavSection[] = [
   {
     title: 'Overview',
     items: [
-      { id: 'overview', label: 'Overview',  icon: <LayoutDashboard size={16} /> },
-      { id: 'plots',    label: 'My plots',  icon: <Map size={16} />, badge: 3 },
+      { id: 'overview', label: 'Overview', icon: <LayoutDashboard size={16} /> },
+      { id: 'plots', label: 'My plots', icon: <Map size={16} />, badge: 3 },
     ],
   },
   {
     title: 'Projects',
     items: [
-      { id: 'mrv',      label: 'MRV status',      icon: <Activity size={16} /> },
-      { id: 'issuance', label: 'Credit issuance',  icon: <Coins size={16} /> },
+      { id: 'mrv', label: 'MRV status', icon: <Activity size={16} /> },
+      { id: 'issuance', label: 'Credit issuance', icon: <Coins size={16} /> },
     ],
   },
   {
     title: 'Earnings',
     items: [
-      { id: 'payouts',  label: 'Payout history', icon: <CreditCard size={16} /> },
-      { id: 'add-plot', label: 'Add new plot',   icon: <PlusCircle size={16} /> },
+      { id: 'payouts', label: 'Payout history', icon: <CreditCard size={16} /> },
+      { id: 'add-plot', label: 'Add new plot', icon: <PlusCircle size={16} /> },
     ],
   },
 ];
