@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { Menu, X, Leaf } from 'lucide-react';
-import { ThemeToggle } from './ThemeToggle';
 
 const navLinks = [
   { label: 'Home', id: 'home' },
@@ -66,12 +65,10 @@ export default function Navigation() {
                 {link.label}
               </button>
             ))}
-            <ThemeToggle />
           </div>
 
           {/* Mobile Controls */}
           <div className="md:hidden flex items-center gap-3">
-            <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 rounded-xl transition-colors hover:bg-mint-light/30"

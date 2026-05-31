@@ -52,7 +52,6 @@ export default function Hero() {
           muted
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
-          poster="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920&q=80"
         >
           {/* Aerial ocean / coastal mangrove — Pexels free stock */}
           <source
@@ -92,10 +91,7 @@ export default function Hero() {
 
       {/* ── Hero Content ── */}
       <div className="hero-content z-[3]">
-        <div className="hero-badge">
-          <span className="w-2 h-2 rounded-full bg-forest animate-pulse-soft" />
-          Building a Sustainable Future
-        </div>
+
 
         <h1 className="hero-title">
           Turning Ecosystem Restoration

@@ -2,9 +2,8 @@
 
 import './globals.css';
 import { Inter, Playfair_Display } from 'next/font/google';
-import { ThemeProvider } from 'next-themes';
 import Script from 'next/script';
-import FaviconAndThemeSync from '../components/FaviconAndThemeSync';
+import Preloader from '../components/Preloader';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const playfair = Playfair_Display({
@@ -76,10 +75,8 @@ export default function RootLayout({
         </Script>
       </head>
       <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-          <FaviconAndThemeSync />
-          {children}
-        </ThemeProvider>
+        <Preloader />
+        {children}
       </body>
     </html>
   );
