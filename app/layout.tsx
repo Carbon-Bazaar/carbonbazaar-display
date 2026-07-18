@@ -66,8 +66,7 @@ export default function RootLayout({
             brand: "CarbonBazaar",
             leadership: {
               CEO: "Pranav Naik",
-              COO: "Shrinivas Inamdar",
-              CTO: "Jay Rane"
+              COO: "Shrinivas Inamdar"
             },
             domain: "carbonbazaar.shop",
             description: "CarbonBazaar is a blockchain-powered carbon credit marketplace enabling blue carbon restoration and transparent climate action."
@@ -86,7 +85,10 @@ export default function RootLayout({
           `}
         </Script>
       </head>
+
       <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
+        {/* Added Google analytics script  */}
+
         <Preloader />
         {children}
       </body>
