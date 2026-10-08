@@ -8,7 +8,7 @@ import AuthModal from '@/components/marketplace/AuthModal';
 import ProjectCard from '@/components/marketplace/ProjectCard';
 import FeaturedCard from '@/components/marketplace/FeaturedCard';
 import { projects } from '@/lib/projects';
-import Link from 'next/link';
+import { websiteHref } from '@/lib/site';
 
 const filterChips = ['All', 'Cashew', 'Agroforestry', 'Mangrove', 'Fractional', 'Verra', 'Plan Vivo', 'CBAM ready'];
 
@@ -21,6 +21,15 @@ export default function MarketplacePage() {
   const [search, setSearch] = useState('');
   const [activeFilter, setActiveFilter] = useState('All');
   const [sortBy, setSortBy] = useState('featured');
+
+  // The main website links here with ?auth=login or ?auth=signup to open the sign-in modal directly
+  useEffect(() => {
+    const auth = new URLSearchParams(window.location.search).get('auth');
+    if (auth === 'login' || auth === 'signup') {
+      setAuthTab(auth);
+      setAuthOpen(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (toast) {
@@ -200,9 +209,9 @@ export default function MarketplacePage() {
               <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>We handle MRV, registry listing, and credit sales. You just register your land.</p>
             </div>
             <div className="flex gap-3 flex-shrink-0">
-              <button className="btn-ghost !py-3 !px-6 !text-sm !rounded-xl">
+              <a href={websiteHref('/#how-it-works')} className="btn-ghost !py-3 !px-6 !text-sm !rounded-xl">
                 Learn more
-              </button>
+              </a>
               <button onClick={() => requireAuth('register your land')} className="btn-primary !py-3 !px-6 !text-sm !rounded-xl">
                 <span>Register your land</span>
               </button>
@@ -240,10 +249,10 @@ export default function MarketplacePage() {
               <ul className="space-y-3">
                 {['Home', 'Mission', 'How It Works', 'Impact', 'Contact'].map(label => (
                   <li key={label}>
-                    <Link href={label === 'Home' ? '/' : `/#${label.toLowerCase().replace(/ /g, '-')}`}
+                    <a href={websiteHref(label === 'Home' ? '/' : `/#${label.toLowerCase().replace(/ /g, '-')}`)}
                       className="text-sm text-white/60 hover:text-mint transition-colors">
                       {label}
-                    </Link>
+                    </a>
                   </li>
                 ))}
               </ul>

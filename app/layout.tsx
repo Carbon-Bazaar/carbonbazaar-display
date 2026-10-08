@@ -1,7 +1,6 @@
 import './globals.css';
 import { Inter, Playfair_Display } from 'next/font/google';
 import Script from 'next/script';
-import { AuthProvider } from '@/contexts/AuthContext';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const playfair = Playfair_Display({
@@ -75,9 +74,7 @@ export default function RootLayout({
             description: "CarbonBazaar is a blockchain-powered carbon credit marketplace enabling blue carbon restoration and transparent climate action."
           };`}
         </Script>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        {children}
       </body>
     </html>
   );

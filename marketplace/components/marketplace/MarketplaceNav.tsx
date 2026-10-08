@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { Leaf, Menu, X, LayoutDashboard, Heart, FileText, Settings, LogOut } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { BASE_PATH, websiteHref } from '@/lib/site';
 
 interface MarketplaceNavProps {
   onOpenAuth: (tab: 'login' | 'signup') => void;
@@ -31,14 +32,15 @@ export default function MarketplaceNav({ onOpenAuth, onToast }: MarketplaceNavPr
     return () => document.removeEventListener('click', handler);
   }, []);
 
-  // Same links as main page Navigation
+  // Same links as main website Navigation (they point back to the website)
   const navLinks = [
-    { label: 'Home', href: '/' },
-    { label: 'Mission', href: '/#mission' },
-    { label: 'What We Do', href: '/#what-we-do' },
-    { label: 'How It Works', href: '/#how-it-works' },
-    { label: 'Impact', href: '/#impact' },
-    { label: 'Contact', href: '/#contact' },
+    { label: 'Home', href: websiteHref('/') },
+    { label: 'Marketplace', href: `${BASE_PATH}/` },
+    { label: 'Mission', href: websiteHref('/#mission') },
+    { label: 'What We Do', href: websiteHref('/#what-we-do') },
+    { label: 'How It Works', href: websiteHref('/#how-it-works') },
+    { label: 'Impact', href: websiteHref('/#impact') },
+    { label: 'Contact', href: websiteHref('/#contact') },
   ];
 
   const handleLogout = () => {
@@ -66,10 +68,10 @@ export default function MarketplaceNav({ onOpenAuth, onToast }: MarketplaceNavPr
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map(link => (
-            <Link key={link.href} href={link.href}
+            <a key={link.href} href={link.href}
               className="text-sm font-medium transition-all duration-300 relative text-[#4A5D4A] hover:text-[#1B4332]">
               {link.label}
-            </Link>
+            </a>
           ))}
         </div>
 
@@ -139,10 +141,10 @@ export default function MarketplaceNav({ onOpenAuth, onToast }: MarketplaceNavPr
       <div className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${mobileOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="bg-white/95 backdrop-blur-xl border-t border-[#95D5B2]/10 px-4 py-4 space-y-1">
           {navLinks.map(link => (
-            <Link key={link.href} href={link.href} onClick={() => setMobileOpen(false)}
+            <a key={link.href} href={link.href} onClick={() => setMobileOpen(false)}
               className="block font-medium py-3 px-4 rounded-xl transition-all duration-300 text-[#4A5D4A] hover:text-[#1B4332] hover:bg-[#B7E4C7]/30">
               {link.label}
-            </Link>
+            </a>
           ))}
           {isLoggedIn && (
             <Link href={dashboardHref} onClick={() => setMobileOpen(false)}

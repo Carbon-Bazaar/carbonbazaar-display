@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useMemo } from 'react';
 import { ChevronDown, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+import { marketplaceHref } from '@/lib/links';
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
@@ -105,12 +105,12 @@ export default function Hero() {
         </p>
 
         <div className="cta-buttons">
-          <Link href="/marketplace" className="btn-primary">
+          <a href={marketplaceHref()} className="btn-primary">
             <span className="flex items-center gap-2">
               Start Your Project
               <ArrowRight className="w-5 h-5" />
             </span>
-          </Link>
+          </a>
           <button onClick={() => scrollToSection('how-it-works')} className="btn-ghost">
             See How It Works
           </button>

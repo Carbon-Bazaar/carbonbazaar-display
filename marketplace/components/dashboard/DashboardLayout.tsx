@@ -2,7 +2,7 @@
 
 import { ReactNode, useState, useCallback, useEffect } from 'react';
 import { Menu, X, Leaf, Linkedin, Mail, MapPin } from 'lucide-react';
-import Link from 'next/link';
+import { websiteHref } from '@/lib/site';
 import MarketplaceNav from '@/components/marketplace/MarketplaceNav';
 import AuthModal from '@/components/marketplace/AuthModal';
 import Sidebar, { NavSection } from './Sidebar';
@@ -153,10 +153,10 @@ export default function DashboardLayout({
               <ul className="space-y-3">
                 {['Home', 'Mission', 'How It Works', 'Impact', 'Contact'].map(label => (
                   <li key={label}>
-                    <Link href={label === 'Home' ? '/' : `/#${label.toLowerCase().replace(/ /g, '-')}`}
+                    <a href={websiteHref(label === 'Home' ? '/' : `/#${label.toLowerCase().replace(/ /g, '-')}`)}
                       className="text-sm text-white/60 hover:text-mint transition-colors">
                       {label}
-                    </Link>
+                    </a>
                   </li>
                 ))}
               </ul>

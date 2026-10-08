@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:marketplace": "npm --prefix marketplace run dev",
     "build": "next build",
+    "build:marketplace": "npm --prefix marketplace run build",
+    "build:all": "npm run build && npm run build:marketplace && node scripts/merge-marketplace.js",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit"
