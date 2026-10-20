@@ -1,9 +1,9 @@
 'use client';
 
 import './globals.css';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Inter, Playfair_Display, Montserrat, Bebas_Neue } from 'next/font/google';
+import localFont from 'next/font/local';
 import Script from 'next/script';
-import Preloader from '../components/Preloader';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const playfair = Playfair_Display({
@@ -11,6 +11,11 @@ const playfair = Playfair_Display({
   variable: '--font-playfair',
   weight: ['400', '600', '700']
 });
+// Landing page: geometric sans for body copy, condensed display for the wordmark
+const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-montserrat', display: 'swap' });
+const bebas = Bebas_Neue({ subsets: ['latin'], variable: '--font-bebas', weight: '400', display: 'swap' });
+// Landing hero headline — Gambetta by Indian Type Foundry (Fontshare, ITF Free Font License; file unmodified, see app/fonts/gambetta)
+const gambetta = localFont({ src: './fonts/gambetta/Gambetta-Semibold.woff2', weight: '600', style: 'normal', variable: '--font-gambetta', display: 'swap' });
 
 export default function RootLayout({
   children,
@@ -86,10 +91,9 @@ export default function RootLayout({
         </Script>
       </head>
 
-      <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${playfair.variable} ${montserrat.variable} ${bebas.variable} ${gambetta.variable} font-sans antialiased`}>
         {/* Added Google analytics script  */}
 
-        <Preloader />
         {children}
       </body>
     </html>
