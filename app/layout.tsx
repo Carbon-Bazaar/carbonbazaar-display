@@ -62,8 +62,9 @@ export default function RootLayout({
           }`}
         </Script>
 
-        <link rel="icon" href="/simple-leaf.png" />
-        <link rel="apple-touch-icon" href="/simple-leaf.png" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="theme-color" content="#7FB069" />
 
         <Script id="ai-meta" strategy="beforeInteractive">
