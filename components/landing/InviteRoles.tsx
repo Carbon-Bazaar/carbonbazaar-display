@@ -205,7 +205,7 @@ function InviteCopy({ align = 'center', titleId }: { align?: 'left' | 'center'; 
       <Reveal
         delay={0.2}
         as="p"
-        className={cn('mt-5 font-montserrat leading-relaxed text-ink/75', left ? 'max-w-[34ch] text-[clamp(14px,1.05cqi,17px)]' : 'max-w-md text-[15px]')}
+        className={cn('mt-5 font-montserrat leading-relaxed text-ink/75', left ? 'max-w-[min(34ch,62%)] text-[clamp(14px,1.05cqi,17px)]' : 'max-w-md text-[15px]')}
       >
         {INVITE.body}
       </Reveal>

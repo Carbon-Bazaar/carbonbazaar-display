@@ -88,7 +88,7 @@ const DECK_POSE = [
 function PhotoDeck({ active }: { active: number }) {
   const place = PLACES[active];
   return (
-    <figure className="w-full max-w-[330px]">
+    <figure className="w-full max-w-[min(330px,calc(80vh-310px))]">
       <div className="relative aspect-[4/5]">
         {/* Offset outlines echo a stack of prints */}
         <span aria-hidden="true" className="absolute inset-0 translate-x-3 translate-y-3 rounded-[22px] border border-ink/15" />
@@ -181,7 +181,7 @@ function MissionBody() {
       <dl className="mt-14 grid grid-cols-3 border-t border-ink/15">
         {MISSION.stats.map((stat, i) => (
           <Reveal key={stat.label} delay={i * 0.1} className={cn('flex flex-col pt-6', i > 0 && 'border-l border-ink/15 pl-5 sm:pl-8')}>
-            <dt className="order-2 mt-3 font-montserrat text-[11px] font-semibold uppercase tracking-[0.25em] text-ink/50">{stat.label}</dt>
+            <dt className="order-2 mt-3 font-montserrat text-[10px] font-semibold uppercase tracking-[0.12em] text-ink/50 sm:text-[11px] sm:tracking-[0.25em]">{stat.label}</dt>
             <dd className="order-1 font-playfair text-[clamp(2.2rem,4.4vw,4rem)] leading-none text-brand-green">
               <Counter value={stat.value} suffix={stat.suffix} />
             </dd>

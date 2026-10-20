@@ -176,7 +176,7 @@ export default function HeroBloom() {
           type="button"
           onClick={() => scrollToId(SECTION_IDS.backedBy)}
           style={{ opacity: cueOpacity }}
-          className="absolute bottom-7 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3 font-montserrat text-[10px] font-semibold uppercase tracking-[0.3em] text-white/80"
+          className="absolute bottom-7 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3 font-montserrat [@media(max-height:720px)]:hidden text-[10px] font-semibold uppercase tracking-[0.3em] text-white/80"
         >
           Scroll to explore
           <span className="relative h-10 w-px overflow-hidden bg-white/25">
