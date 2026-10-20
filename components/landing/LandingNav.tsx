@@ -10,22 +10,17 @@ import { EASE, useScrollToId } from './motion';
 
 /**
  * Landing navigation: transparent on the paper at first, a frosted paper bar
- * once scrolled; slips away while reading down and returns on scroll-up.
+ * once scrolled; it stays pinned to the top while scrolling.
  * Section links only, as on the current site.
  */
 export default function LandingNav() {
   const scrollToId = useScrollToId();
   const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
-  const [hidden, setHidden] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(null);
 
-  useMotionValueEvent(scrollY, 'change', (y) => {
-    const previous = scrollY.getPrevious() ?? 0;
-    setScrolled(y > 24);
-    setHidden(y > 240 && y > previous && !menuOpen);
-  });
+  useMotionValueEvent(scrollY, 'change', (y) => setScrolled(y > 24));
 
   // Scroll-spy for the active section dot.
   useEffect(() => {
@@ -58,10 +53,7 @@ export default function LandingNav() {
 
   return (
     <>
-      <motion.header
-        initial={false}
-        animate={{ y: hidden ? '-110%' : '0%' }}
-        transition={{ duration: 0.5, ease: EASE }}
+      <header
         className={cn(
           'fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-500',
           scrolled && !menuOpen && 'bg-paper/80 shadow-[0_1px_0_rgba(31,42,36,0.08)] backdrop-blur-xl',
@@ -111,7 +103,7 @@ export default function LandingNav() {
             {menuOpen ? 'Close' : 'Menu'}
           </button>
         </div>
-      </motion.header>
+      </header>
 
       {/* Full-screen menu (mobile / tablet) */}
       <AnimatePresence>
