@@ -153,37 +153,36 @@ export const FOOTER = {
 
 /* ───────────────────────── About page ───────────────────────── */
 
+// Images on this page are used nowhere else on the site. Landscape photos are CC0 1.0 (no attribution
+// required): hero "Sal River in Cavelossim, Goa" by Hardeep Asrani (wordpress.org/photos); band "Western
+// Ghats in Kanyakumari 04" by Aswin Abi and closing "Monsoon view of the Sengottai Gap" by Planemad (Wikimedia Commons).
 export const ABOUT = {
   hero: {
     eyebrow: 'About us',
     title: 'Climate equity for all.',
     body: 'We are building a carbon marketplace where the communities who protect forests, plantations and coastlines are the ones who benefit.',
-    // Real Goa coastline (the seedling painting has a reconstructed patch meant to sit under glass)
-    art: '/images/landing/places/canacona-mangrove.webp',
+    art: '/images/about/hero-sal-river.webp',
   },
   story: {
     label: 'About us',
-    photo: '/images/landing/places/quepem-agroforestry.webp',
-    art: '/images/landing/art/kyc-personal.webp',
-    paragraphs: [
-      'CarbonBazaar is a climate-tech platform from Goa, India, enabling communities and landowners to convert ecosystem restoration into verified carbon credits through a transparent digital marketplace.',
-      'Many communities preserve forests, plantations and coastal ecosystems but can’t access carbon markets because of complex verification, high costs and a lack of transparency. We bring project onboarding, third-party verification and blockchain-based tokenization together, and make credits affordable for MSMEs through fractional ownership.',
-      'By 2030 we aim to empower 10,000+ coastal community members, onboard 50,000+ SMEs into sustainable offsetting and help restore 500+ hectares of ecosystem.',
-    ],
-    supporters: 'Supported by the Government of Goa, FIIRE Goa, MeitY and the Startup Promotion Cell, Goa.',
+    photo: '/images/team/founders.webp',
+    photoAlt: 'Founders Pranav Naik and Shrinivas Inamdar',
+    art: '/images/about/ghats-paddy.webp',
+    description:
+      'CarbonBazaar is a climate-tech platform from Goa that helps communities and landowners turn the forests, plantations and coastlines they protect into verified carbon credits. We take every project from onboarding through third-party verification to on-chain tokenization, then sell fractional credits on a transparent marketplace with no middlemen, so small businesses can offset affordably and the people restoring the land are fairly paid.',
   },
   talk: 'Want to talk about carbon, land or partnerships?',
   team: {
     title: 'The people behind CarbonBazaar',
-    // Drop portraits in /public/images/team/ and set `photo` (square crops work best).
+    // Square portraits in /public/images/team/ (set `photo: null` to show the placeholder instead).
     members: [
-      { name: 'Pranav Naik', role: 'Founder & CEO', initials: 'PN', photo: null as string | null },
-      { name: 'Shrinivas Inamdar', role: 'Co-founder & COO', initials: 'SI', photo: null as string | null },
+      { name: 'Pranav Naik', role: 'Founder & CEO', initials: 'PN', photo: '/images/team/pranav-naik.webp' as string | null },
+      { name: 'Shrinivas Inamdar', role: 'Co-founder & COO', initials: 'SI', photo: '/images/team/shrinivas-inamdar.webp' as string | null },
     ],
   },
   closing: {
     title: 'From Goa’s coasts, for the planet.',
-    art: '/images/landing/art/kyc-review.webp',
+    art: '/images/about/monsoon-paddy.webp',
     rows: [
       {
         text: 'Businesses and MSMEs: offset your emissions with verified, fractional carbon credits.',

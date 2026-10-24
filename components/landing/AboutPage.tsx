@@ -100,7 +100,7 @@ function AboutStory() {
           <span aria-hidden="true" className="absolute inset-0 translate-x-3 translate-y-3 rounded-[22px] border border-ink/15" />
           <span aria-hidden="true" className="absolute inset-0 translate-x-6 translate-y-6 rounded-[22px] border border-ink/10" />
           <div className="absolute inset-0 overflow-hidden rounded-[22px] border-[6px] border-white bg-white shadow-[0_25px_50px_-20px_rgba(15,46,34,0.45)]">
-            <Image src={story.photo} alt="Agroforestry in Quepem, Goa" fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover" />
+            <Image src={story.photo} alt={story.photoAlt} fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover" />
           </div>
         </figure>
       </Reveal>
@@ -112,16 +112,9 @@ function AboutStory() {
           </h2>
         </header>
         <PaintReveal src={story.art} className="mt-8 aspect-[1090/328] w-full rounded-[18px]" />
-        <div className="mt-10 space-y-6">
-          {story.paragraphs.map((paragraph, i) => (
-            <Reveal key={i} delay={i * 0.1} as="p" className="max-w-2xl font-montserrat text-[16px] leading-[1.75] text-ink/75">
-              {paragraph}
-            </Reveal>
-          ))}
-          <Reveal delay={0.3} as="p" className="max-w-2xl border-t border-ink/15 pt-6 font-montserrat text-[14px] font-medium leading-relaxed text-brand-green">
-            {story.supporters}
-          </Reveal>
-        </div>
+        <Reveal as="p" className="mt-10 max-w-2xl font-montserrat text-[17px] leading-[1.75] text-ink/80">
+          {story.description}
+        </Reveal>
       </div>
     </section>
   );
