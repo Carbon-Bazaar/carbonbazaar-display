@@ -40,9 +40,9 @@ function AboutHero() {
       <motion.div aria-hidden="true" style={{ scale: artScale }} className="absolute inset-0">
         <Image src={ABOUT.hero.art} alt="" fill priority sizes="100vw" className="object-cover" />
       </motion.div>
-      {/* deep-forest wash so the white type reads on the light painting; darker under the header and the copy */}
-      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-brand-ink/90 via-brand-ink/55 to-brand-ink/45" />
-      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-brand-ink/60 via-transparent to-transparent" />
+      {/* light touch so the landscape stays luminous; darker only where the copy sits (left / bottom) */}
+      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-brand-ink/80 via-brand-ink/20 to-brand-ink/10" />
+      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-brand-ink/70 via-brand-ink/25 to-transparent" />
 
       <motion.div style={{ y: copyY }} className="relative mx-auto w-full max-w-[1440px] px-6 pb-16 pt-40 sm:px-10 lg:px-12 lg:pb-24">
         <motion.p
