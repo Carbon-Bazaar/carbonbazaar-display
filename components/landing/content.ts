@@ -176,8 +176,8 @@ export const ABOUT = {
     title: 'The people behind CarbonBazaar',
     // Square portraits in /public/images/team/ (set `photo: null` to show the placeholder instead).
     members: [
-      { name: 'Pranav Naik', role: 'Founder & CEO', initials: 'PN', photo: '/images/team/pranav-naik.webp' as string | null },
-      { name: 'Shrinivas Inamdar', role: 'Co-founder & COO', initials: 'SI', photo: '/images/team/shrinivas-inamdar.webp' as string | null },
+      { name: 'Pranav Naik', role: 'Founder & CEO', education: 'Don Bosco College of Engineering, Goa', initials: 'PN', photo: '/images/team/pranav-naik.webp' as string | null },
+      { name: 'Shrinivas Inamdar', role: 'Co-founder & COO', education: 'Don Bosco College of Engineering, Goa', initials: 'SI', photo: '/images/team/shrinivas-inamdar.webp' as string | null },
     ],
   },
   closing: {

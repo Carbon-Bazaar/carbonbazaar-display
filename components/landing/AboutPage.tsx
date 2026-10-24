@@ -160,15 +160,17 @@ function Team() {
         as="h2"
         id="team-title"
         text={team.title}
-        className="max-w-3xl font-playfair text-[clamp(2rem,4vw,3.5rem)] font-normal leading-[1.05] tracking-[-0.015em] !text-ink"
+        className="mx-auto max-w-3xl text-center font-playfair text-[clamp(2rem,4vw,3.5rem)] font-normal leading-[1.05] tracking-[-0.015em] !text-ink"
       />
-      <ul className="mt-14 grid max-w-4xl gap-x-10 gap-y-14 sm:grid-cols-2">
+      {/* Two founders: a centred pair */}
+      <ul className="mx-auto mt-14 grid max-w-[880px] gap-x-10 gap-y-14 sm:grid-cols-2">
         {team.members.map((member, i) => (
           <Reveal key={member.name} as="li" delay={i * 0.12}>
             <Portrait name={member.name} initials={member.initials} photo={member.photo} />
             <div className="mt-6 border-b border-ink/15 pb-5 text-center">
               <p className="font-montserrat text-[19px] font-semibold text-ink">{member.name}</p>
               <p className="mt-1.5 font-montserrat text-[14px] font-medium text-brand-green">{member.role}</p>
+              <p className="mt-3 font-montserrat text-[13px] leading-snug text-ink/60">{member.education}</p>
             </div>
           </Reveal>
         ))}
