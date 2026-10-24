@@ -1,9 +1,10 @@
 'use client';
 
 import { useRef } from 'react';
+import Link from 'next/link';
 import { ArrowUpRight, Linkedin, Mail, MapPin } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'motion/react';
-import { FOOTER, SECTION_IDS, SUPPORTERS } from './content';
+import { ABOUT_LINK, FOOTER, SECTION_IDS, SUPPORTERS } from './content';
 import { useScrollToId } from './motion';
 
 const WORDMARK = ['C', 'A', 'R', 'B', 'O', 'N', ' ', 'B', 'A', 'Z', 'A', 'A', 'R'];
@@ -40,6 +41,11 @@ export default function LandingFooter() {
                 </button>
               </li>
             ))}
+            <li>
+              <Link href={ABOUT_LINK.href} className="text-[15px] text-white/70 transition-colors hover:text-white">
+                {ABOUT_LINK.label}
+              </Link>
+            </li>
           </FooterColumn>
 
           <FooterColumn title="Connect">

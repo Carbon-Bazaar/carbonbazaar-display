@@ -10,6 +10,7 @@ import {
   type ReactNode,
 } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import { animate, motion, MotionConfig, useInView, useReducedMotion } from 'motion/react';
@@ -26,7 +27,10 @@ const NAV_OFFSET = -72;
 type ScrollToId = (id: string) => void;
 const ScrollToContext = createContext<ScrollToId>(() => {});
 
-/** Smooth-scrolls to an element id (Lenis when available, native otherwise). */
+/**
+ * Smooth-scrolls to an element id (Lenis when available, native otherwise).
+ * From another page (e.g. /about) it navigates home and lands on that section.
+ */
 export function useScrollToId() {
   return useContext(ScrollToContext);
 }
@@ -38,6 +42,7 @@ export function useScrollToId() {
 export function SmoothScroll({ children }: { children: ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
   const reduceMotion = useReducedMotion();
+  const router = useRouter();
 
   useEffect(() => {
     if (reduceMotion) return;
@@ -52,7 +57,10 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
   const scrollToId = useCallback<ScrollToId>(
     (id) => {
       const el = document.getElementById(id);
-      if (!el) return;
+      if (!el) {
+        router.push(id === 'home' ? '/' : `/#${id}`, { scroll: false });
+        return;
+      }
       const offset = id === 'home' ? 0 : NAV_OFFSET;
       if (lenisRef.current) {
         lenisRef.current.scrollTo(el, { offset, duration: 1.6 });
@@ -60,8 +68,41 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
         window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + offset, behavior: reduceMotion ? 'auto' : 'smooth' });
       }
     },
-    [reduceMotion],
+    [reduceMotion, router],
   );
+
+  // Arriving with a hash (e.g. "/#impact" from the About page): land below the fixed header.
+  // Sections above can still grow after mount (the pinned journey measures its track), so keep
+  // re-aiming while the page settles, and stop the moment the visitor scrolls themselves.
+  useEffect(() => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const land = () => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const offset = id === 'home' ? 0 : NAV_OFFSET;
+      if (lenisRef.current) {
+        lenisRef.current.resize(); // Lenis caches the scroll limit; the page may just have grown
+        lenisRef.current.scrollTo(el, { offset, immediate: true, force: true });
+      }
+      else window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + offset });
+    };
+    const resize = new ResizeObserver(land);
+    const stop = () => {
+      resize.disconnect();
+      clearTimeout(timer);
+      window.removeEventListener('wheel', stop);
+      window.removeEventListener('touchstart', stop);
+      window.removeEventListener('keydown', stop);
+    };
+    const timer = setTimeout(stop, 2500);
+    window.addEventListener('wheel', stop, { passive: true });
+    window.addEventListener('touchstart', stop, { passive: true });
+    window.addEventListener('keydown', stop);
+    resize.observe(document.body);
+    land();
+    return stop;
+  }, []);
 
   return (
     <MotionConfig reducedMotion="user">

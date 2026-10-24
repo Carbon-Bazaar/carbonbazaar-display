@@ -10,5 +10,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 1.0,
     },
+    {
+      url: 'https://carbonbazaar.shop/about',
+      lastModified: new Date('2026-10-24'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
   ];
 }

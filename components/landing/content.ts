@@ -23,6 +23,9 @@ export const NAV_LINKS = [
   { label: 'Contact', id: SECTION_IDS.contact },
 ] as const;
 
+/** Separate page linked from the navbar (between Impact and Contact) and the footer. */
+export const ABOUT_LINK = { label: 'About us', href: '/about' } as const;
+
 export const ART = {
   mission: '/images/landing/art/kyc-personal.webp',
   whatWeDo: '/images/landing/art/add-plot.webp',
@@ -146,4 +149,57 @@ export const FOOTER = {
     { label: 'Impact', id: SECTION_IDS.impact },
     { label: 'Contact', id: SECTION_IDS.contact },
   ],
+} as const;
+
+/* ───────────────────────── About page ───────────────────────── */
+
+export const ABOUT = {
+  hero: {
+    eyebrow: 'About us',
+    title: 'Climate equity for all.',
+    body: 'We are building a carbon marketplace where the communities who protect forests, plantations and coastlines are the ones who benefit.',
+    // Real Goa coastline (the seedling painting has a reconstructed patch meant to sit under glass)
+    art: '/images/landing/places/canacona-mangrove.webp',
+  },
+  story: {
+    label: 'About us',
+    photo: '/images/landing/places/quepem-agroforestry.webp',
+    art: '/images/landing/art/kyc-personal.webp',
+    paragraphs: [
+      'CarbonBazaar is a climate-tech platform from Goa, India, enabling communities and landowners to convert ecosystem restoration into verified carbon credits through a transparent digital marketplace.',
+      'Many communities preserve forests, plantations and coastal ecosystems but can’t access carbon markets because of complex verification, high costs and a lack of transparency. We bring project onboarding, third-party verification and blockchain-based tokenization together, and make credits affordable for MSMEs through fractional ownership.',
+      'By 2030 we aim to empower 10,000+ coastal community members, onboard 50,000+ SMEs into sustainable offsetting and help restore 500+ hectares of ecosystem.',
+    ],
+    supporters: 'Supported by the Government of Goa, FIIRE Goa, MeitY and the Startup Promotion Cell, Goa.',
+  },
+  talk: 'Want to talk about carbon, land or partnerships?',
+  team: {
+    title: 'The people behind CarbonBazaar',
+    // Drop portraits in /public/images/team/ and set `photo` (square crops work best).
+    members: [
+      { name: 'Pranav Naik', role: 'Founder & CEO', initials: 'PN', photo: null as string | null },
+      { name: 'Shrinivas Inamdar', role: 'Co-founder & COO', initials: 'SI', photo: null as string | null },
+    ],
+  },
+  closing: {
+    title: 'From Goa’s coasts, for the planet.',
+    art: '/images/landing/art/kyc-review.webp',
+    rows: [
+      {
+        text: 'Businesses and MSMEs: offset your emissions with verified, fractional carbon credits.',
+        cta: 'Buy credits',
+        href: 'mailto:info@carbonbazaar.co.in?subject=Buying%20carbon%20credits',
+      },
+      {
+        text: 'Landowners and communities: turn the ecosystems you protect into a new source of income.',
+        cta: 'For landowners',
+        href: 'mailto:info@carbonbazaar.co.in?subject=Registering%20my%20land',
+      },
+      {
+        text: 'Follow our journey and build climate equity with us.',
+        cta: 'Connect on LinkedIn',
+        href: 'https://www.linkedin.com/company/carbon-bazaar/',
+      },
+    ],
+  },
 } as const;

@@ -1,20 +1,28 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react';
 import { cn } from '@/lib/utils';
 import BrandLogo from './BrandLogo';
-import { NAV_LINKS, SECTION_IDS } from './content';
+import { ABOUT_LINK, NAV_LINKS, SECTION_IDS } from './content';
 import { EASE, useScrollToId } from './motion';
 
+/** Section links (scroll on the home page) with the About page slotted in before Contact. */
+const ITEMS = [...NAV_LINKS.slice(0, -1), ABOUT_LINK, ...NAV_LINKS.slice(-1)];
+type Item = (typeof ITEMS)[number] | { label: string; id: string };
+
+const itemKey = (item: Item) => ('href' in item ? item.href : item.id);
+
 /**
- * Landing navigation: transparent on the paper at first, a frosted paper bar
+ * Landing navigation: transparent over the hero at first, a frosted paper bar
  * once scrolled; it stays pinned to the top while scrolling.
- * Section links only, as on the current site.
  */
 export default function LandingNav() {
   const scrollToId = useScrollToId();
+  const pathname = usePathname();
   const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -22,7 +30,7 @@ export default function LandingNav() {
 
   useMotionValueEvent(scrollY, 'change', (y) => setScrolled(y > 24));
 
-  // Scroll-spy for the active section dot.
+  // Scroll-spy for the active section dot (home page only; other pages have none of these ids).
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((entry) => entry.isIntersecting && setActiveId(entry.target.id)),
@@ -48,7 +56,9 @@ export default function LandingNav() {
     scrollToId(id);
   };
 
-  // Over the hero video (top of page) the bar is transparent with light type.
+  const isActive = (item: Item) => ('href' in item ? pathname?.startsWith(item.href) ?? false : activeId === item.id);
+
+  // Over the hero (top of page) the bar is transparent with light type.
   const light = !scrolled && !menuOpen;
 
   return (
@@ -61,31 +71,37 @@ export default function LandingNav() {
         )}
       >
         <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between gap-6 px-5 lg:px-12">
-          <button type="button" onClick={() => go(SECTION_IDS.home)} aria-label="Carbon Bazaar, back to top" className="shrink-0">
+          <button type="button" onClick={() => go(SECTION_IDS.home)} aria-label="Carbon Bazaar, home" className="shrink-0">
             <BrandLogo size="sm" tone={light ? 'light' : 'brand'} />
           </button>
 
-          <nav aria-label="Sections" className="hidden items-center gap-8 lg:flex">
-            {NAV_LINKS.map((link) => (
-              <button
-                key={link.id}
-                type="button"
-                onClick={() => go(link.id)}
-                aria-current={activeId === link.id ? 'true' : undefined}
-                className={cn(
-                  'group relative py-2 font-montserrat text-[14px] font-medium transition-colors',
-                  light ? 'text-white/85 hover:text-white' : 'text-ink/70 hover:text-ink',
-                )}
-              >
-                {link.label}
+          <nav aria-label="Main" className="hidden items-center gap-8 lg:flex">
+            {ITEMS.map((item) => {
+              const active = isActive(item);
+              const className = cn(
+                'group relative py-2 font-montserrat text-[14px] font-medium transition-colors',
+                light ? 'text-white/85 hover:text-white' : 'text-ink/70 hover:text-ink',
+              );
+              const dot = (
                 <span
                   className={cn(
                     'absolute -bottom-0.5 left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-brand-green transition-all duration-500',
-                    activeId === link.id ? 'scale-100 opacity-100' : 'scale-0 opacity-0',
+                    active ? 'scale-100 opacity-100' : 'scale-0 opacity-0',
                   )}
                 />
-              </button>
-            ))}
+              );
+              return 'href' in item ? (
+                <Link key={itemKey(item)} href={item.href} aria-current={active ? 'page' : undefined} className={className}>
+                  {item.label}
+                  {dot}
+                </Link>
+              ) : (
+                <button key={itemKey(item)} type="button" onClick={() => go(item.id)} aria-current={active ? 'true' : undefined} className={className}>
+                  {item.label}
+                  {dot}
+                </button>
+              );
+            })}
           </nav>
 
           <button
@@ -117,25 +133,39 @@ export default function LandingNav() {
             transition={{ duration: 0.7, ease: EASE }}
             className="bg-paper-texture fixed inset-0 z-40 flex flex-col overflow-y-auto px-6 pb-10 pt-28 lg:hidden"
           >
-            <nav aria-label="Sections" className="flex flex-col">
-              {[{ label: 'Home', id: SECTION_IDS.home }, ...NAV_LINKS].map((link, i) => (
-                <motion.button
-                  key={link.id}
-                  type="button"
-                  onClick={() => go(link.id)}
+            <nav aria-label="Main" className="flex flex-col">
+              {([{ label: 'Home', id: SECTION_IDS.home }, ...ITEMS] as Item[]).map((item, i) => (
+                <motion.div
+                  key={itemKey(item)}
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, ease: EASE, delay: 0.15 + i * 0.05 }}
-                  className="flex items-baseline gap-4 border-b border-ink/10 py-4 text-left"
+                  className="border-b border-ink/10"
                 >
-                  <span className="font-montserrat text-xs font-semibold tabular-nums text-ink/40">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="font-playfair text-[34px] leading-none text-ink">{link.label}</span>
-                </motion.button>
+                  {'href' in item ? (
+                    <Link href={item.href} onClick={() => setMenuOpen(false)} className="block w-full">
+                      <MenuRow index={i} label={item.label} />
+                    </Link>
+                  ) : (
+                    <button type="button" onClick={() => go(item.id)} className="block w-full">
+                      <MenuRow index={i} label={item.label} />
+                    </button>
+                  )}
+                </motion.div>
               ))}
             </nav>
           </motion.div>
         )}
       </AnimatePresence>
     </>
+  );
+}
+
+function MenuRow({ index, label }: { index: number; label: ReactNode }) {
+  return (
+    <span className="flex items-baseline gap-4 py-4 text-left">
+      <span className="font-montserrat text-xs font-semibold tabular-nums text-ink/40">{String(index + 1).padStart(2, '0')}</span>
+      <span className="font-playfair text-[34px] leading-none text-ink">{label}</span>
+    </span>
   );
 }
